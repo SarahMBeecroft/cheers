@@ -1,27 +1,30 @@
 <template>
   <div class="card text-center m-3">
     <h5 class="card-header">Simple GET Request</h5>
-    <div class="card-body">Total vue packages: {{ totalVuePackages }}</div>
+    <div class="card-body">Random cocktail: {{ data }}</div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
+const axios = require("axios");
 export default {
-  name: 'get-request',
+  name: "App",
   data() {
     return {
-      totalVuePackages: null,
+      data: {}
     };
   },
-  created() {
-    // Simple GET request using axios
-    axios
-      .get('https://api.npms.io/v2/search?q=vue')
-      .then((response) => (this.totalVuePackages = response.data.total));
-    console.log(data);
+  beforeMount() {
+    this.getName();
   },
+  methods: {
+    async getName() {
+      const { data } = await axios.get(
+        "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Bourbon"
+      );
+      this.data = data;
+    }
+  }
 };
 </script>
 
